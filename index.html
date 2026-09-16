@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Pályaorientáció – egyszerű kérdésapp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    .kerdesdoboz { background: white; padding: 20px; border-radius: 10px; }
+    button { padding: 10px 20px; margin-top: 20px; }
+    #eredmeny { font-size: 28px; text-align: center; margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+<h1>Pályaorientáció – kérdéssor</h1>
+
+<div id="kerdesdoboz" class="kerdesdoboz">
+  <div id="kerdes"></div>
+  <div id="valaszok"></div>
+  <button id="tovabb">Tovább</button>
+</div>
+
+<div id="eredmeny" style="display:none;"></div>
+
+<script>
+  // --- KÉRDÉSEK ---
+  const kerdesek = [
+    {
+      kerdes: "Melyik tantárgyat szereted?",
+      valaszok: [
+        { szoveg: "Magyar", profil: "human" },
+        { szoveg: "Biológia", profil: "biosz" },
+        { szoveg: "Matematika", profil: "real" },
+        { szoveg: "Informatika", profil: "info" }
+      ]
+    },
+    {
+      kerdes: "Milyen feladatokat élvezel?",
+      valaszok: [
+        { szoveg: "Olvasás", profil: "human" },
+        { szoveg: "Kísérletezés", profil: "biosz" },
+        { szoveg: "Számolás", profil: "real" },
+        { szoveg: "Gépezés", profil: "info" }
+      ]
+    }
+  ];
+
+  // --- PONTOK ---
+  let pontok = { human: 0, biosz: 0, real: 0, info: 0 };
+  let index = 0;
+
+  // --- KÉRDÉS MEGJELENÍTÉSE ---
+  function mutatKerdes() {
+    const k = kerdesek[index];
+    document.getElementById("kerdes").innerHTML = "<h2>" + k.kerdes + "</h2>";
+
+    let html = "";
+    k.valaszok.forEach(v => {
+      html += `
+        <label>
+          <input type="radio" name="v" value="${v.profil}">
+          ${v.szoveg}
+        </label><br>
+      `;
+    });
+
+    document.getElementById("valaszok").innerHTML = html;
+  }
+
+  // --- TOVÁBB ---
+  document.getElementById("tovabb").addEventListener("click", () => {
+    const r = document.querySelector('input[name="v"]:checked');
+
+    if (!r) {
+      alert("Válassz egyet!");
+      return;
+    }
+
+    pontok[r.value]++;
+    index++;
+
+    if (index >= kerdesek.length) {
+      mutatEredmeny();
+    } else {
+      mutatKerdes();
+    }
+  });
+
+  // --- EREDMÉNY ---
+  function mutatEredmeny() {
+    document.getElementById("kerdesdoboz").style.display = "none";
+
+    const lista = [
+      { nev: "Humán", pont: pontok.human },
+      { nev: "Biológia", pont: pontok.biosz },
+      { nev: "Reál", pont: pontok.real },
+      { nev: "Infó", pont: pontok.info }
+    ];
+
+    lista.sort((a, b) => b.pont - a.pont);
+
+    document.getElementById("eredmeny").style.display = "block";
+    document.getElementById("eredmeny").innerHTML =
+      "Ajánlott tagozat: <b>" + lista[0].nev + "</b>";
+  }
+
+  // Indítás
+  mutatKerdes();
+</script>
+
+</body>
+</html>
