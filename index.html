@@ -7,21 +7,60 @@
 
 
   <style>
-    body { font-family: Arial; padding: 20px; background: #9893cc; color: rgb(255, 255, 255); }
-    .kerdesdoboz { background: white; color: rgb(8, 2, 28); padding: 20px; border-radius: 10px; width: 800px; }
-    button { padding: 10px 20px; margin-top: 20px; }
-    #eredmeny { font-size: 28px; text-align: center; margin-top: 30px; }
-    .doboz {
-      position: absolute;
-      top: 30px;
-      left: 750px;
-      width: 100%;
-      max-width: 600px; /* ha kell */
-      margin: 0 auto;
-}
+    body { 
+      font-family: Arial; 
+      padding: 20px; 
+      background: #9893cc; 
+      color: rgb(255, 255, 255);
+      max-width: 100%;
+      overflow-x: hidden; /* <<< KULCS! */
+      box-sizing: border-box;
+    }
 
-}
-  </style>
+    .kerdesdoboz { 
+      background: white; 
+      color: rgb(8, 2, 28); 
+      padding: 20px; 
+      border-radius: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button { 
+      padding: 10px 20px; 
+      margin-top: 20px; 
+    }
+
+    #eredmeny { 
+      font-size: 28px; 
+      text-align: center; 
+      margin-top: 30px; 
+    }
+
+    .doboz {
+      width: 100%;
+      max-width: 120px; 
+      margin: 0 auto;   
+      text-align: center;
+    }
+
+    .doboz img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    h1, h3 {
+      text-align: center; 
+      margin: 10px 0;
+    }
+
+    hr {
+      width: 80%; 
+      margin: 10px auto;
+    }
+</style>
+
 </head>
 <body>
     <div class="doboz">
